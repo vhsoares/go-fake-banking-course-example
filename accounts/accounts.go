@@ -3,31 +3,30 @@ package accounts
 import "fmt"
 
 type Account struct {
-	name          string
-	agency        int
-	saldo         Saldo
-	limit         float64
-	lastOperation string
+	Name          string
+	Agency        int
+	Saldo         Saldo
+	LastOperation string
 }
 
-func (account *Account) deposit(value float64) string {
-	message := account.saldo.deposit(value)
+func (account *Account) Deposit(value float64) string {
+	message := account.Saldo.Deposit(value)
 	fmt.Println(message)
 	return message
 }
 
-func (account *Account) draw(value float64) string {
-	message := account.saldo.draw(value)
+func (account *Account) Draw(value float64) string {
+	message := account.Saldo.Draw(value)
 	fmt.Println(message)
 	return message
 }
 
-func (account *Account) transfer(value float64, receiver *Account) string {
+func (account *Account) Transfer(value float64, receiver *Account) string {
 
-	if account.saldo.authorizeRemoval(value) {
+	if account.Saldo.authorizeRemoval(value) {
 
-		account.saldo.draw(value)
-		receiver.saldo.deposit(value)
+		account.Saldo.Draw(value)
+		receiver.Saldo.Deposit(value)
 		fmt.Println("Transferência concluída")
 
 	} else {

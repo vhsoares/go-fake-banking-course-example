@@ -1,28 +1,28 @@
 package accounts
 
 type Saldo struct {
-	value float64
-	limit float64
+	Value float64
+	Limit float64
 }
 
-func (saldo *Saldo) deposit(value float64) string {
+func (saldo *Saldo) Deposit(value float64) string {
 
-	if positiveValue(value) {
+	if negativeValue(value) {
 		return "Operação não autorizada: Valor Negativo"
 	}
 
-	saldo.value = saldo.value + value
+	saldo.Value = saldo.Value + value
 	return "Depósito efetuado com sucesso"
 }
 
-func (saldo *Saldo) draw(value float64) string {
+func (saldo *Saldo) Draw(value float64) string {
 
-	if positiveValue(value) {
+	if negativeValue(value) {
 		return "Operação não autorizada: Valor Negativo"
 	}
 
 	if saldo.authorizeRemoval(value) {
-		saldo.value = saldo.value - value
+		saldo.Value = saldo.Value - value
 		return "Operação Concluída"
 	}
 
@@ -31,9 +31,9 @@ func (saldo *Saldo) draw(value float64) string {
 }
 
 func (saldo *Saldo) authorizeRemoval(value float64) bool {
-	return saldo.value+saldo.limit < value
+	return saldo.Value+saldo.Limit < value
 }
 
-func positiveValue(value float64) bool {
-	return value > 0
+func negativeValue(value float64) bool {
+	return value < 0
 }
